@@ -1,10 +1,10 @@
-import tomatoes from './assets/tomatoes.jpg'
-import bread from './assets/bread.gif'
-import pom from './assets/pom.png'
-import cheese from './assets/cheese.jpg'
-import kiwi from './assets/kiwi.jpg'
-import eggs from './assets/eggs.jpg'
-import cukes from './assets/cukes.jpg'
+import tomatoes from '../assets/tomatoes.jpg'
+import bread from '../assets/bread.gif'
+import pom from '../assets/pom.png'
+import cheese from '../assets/cheese.jpg'
+import kiwi from '../assets/kiwi.jpg'
+import eggs from '../assets/eggs.jpg'
+import cukes from '../assets/cukes.jpg'
 
 const createList = () => {
   return([
