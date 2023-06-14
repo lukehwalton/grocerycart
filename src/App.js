@@ -1,25 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import Grocery from './Grocery';
+import createList from './createList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  let price = 0;
+  const groceries = createList();
+  return(
+    <>
+    <div className='header'>
+      <h1>Welcome to the grocery store!</h1>
+      <h6>We've got everything a body needs</h6>
     </div>
-  );
+      <Grocery
+        name="Tomatoes"
+        price={2.99}
+        quantity={5}
+        img={tomatoes}
+        type="success"
+        addRemoveImg = "cart-plus.jpg"
+      />
+    </>
+  )
 }
 
 export default App;
