@@ -4,6 +4,7 @@ import GroceryStore from './components/GroceryStore';
 import ShoppingCart from './components/ShoppingCart';
 import createList from './components/createList';
 import Totals from './components/Totals';
+import CheckoutBtn from './components/CheckoutBtn';
 
 function App() {
   const [store, setStore] = useState(createList('store'));
@@ -38,6 +39,10 @@ function App() {
       adjustQuantity(name, 'store', 1);
     }
   }
+
+  const checkout = () => {
+
+  }
     
   return(
     <div className='page'>
@@ -47,12 +52,13 @@ function App() {
         <p>What? No, not like that. Stop licking your monitor</p>
       </div>
       <div className='row'>
-        <div className='col'>
+        <div className='col store-col'>
           <GroceryStore items={store} update={update}/>
         </div>
         <div className='col'>
           <ShoppingCart items={cart} update={update}/>
           <Totals cart={cart}></Totals>
+          <CheckoutBtn checkoutFn={checkout}/>
         </div>
       </div>
     </div>
