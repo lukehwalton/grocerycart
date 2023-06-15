@@ -1,26 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
-import Grocery from './Grocery';
-import createList from './createList';
+import GroceryStore from './components/GroceryStore';
+import ShoppingCart from './components/ShoppingCart';
+import createList from './components/createList';
 
 function App() {
-  let price = 0;
-  const groceries = createList();
+  const stock = createList('store');
+  const cart = createList('store');
+
+  const update = (item, location) =>{
+    console.log(`updating ${item}`)
+    if (location==='store'){
+        stock.find(grocery => grocery.name===item).quantity--;
+        cart.find(grocery => grocery.name===item).quantity++;
+        console.log(`${item}'s quantity is now ${stock.find(grocery => grocery.name===item).quantity}`)
+    } else if(location==='cart'){
+      stock.find(grocery => grocery.name===item).quantity++;
+      cart.find(grocery => grocery.name===item).quantity--;
+      console.log(`${item}'s quantity is now ${cart.find(grocery => grocery.name===item).quantity}`)
+    }
+    
+  }
+
   return(
-    <>
-    <div className='header'>
-      <h1>Welcome to the grocery store!</h1>
-      <h6>We've got everything a body needs</h6>
+    <div className='page'>
+      <div className='header bg-success'>
+        <h1>Welcome to the grocery store!</h1>
+        <h4>We've got everything a body needs</h4>
+        <p>What? No, not like that. Stop licking your monitor</p>
+      </div>
+      <div className='row'>
+        <div className='col stock'>
+          <GroceryStore items={stock} update={update}/>
+        </div>
+        <div className='col cart'>
+          <ShoppingCart items={cart} update={update}/>
+        </div>
+      </div>
     </div>
-      <Grocery
-        name="Tomatoes"
-        price={2.99}
-        quantity={5}
-        img={tomatoes}
-        type="success"
-        addRemoveImg = "cart-plus.jpg"
-      />
-    </>
   )
 }
 
