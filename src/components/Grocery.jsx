@@ -2,14 +2,16 @@ import {useState} from 'react';
 import './Grocery.css';
 
 
-const Grocery = ({name, price, quantity, img, type, addRemoveImg}) => {
-  const [inStock, setInStock] = useState(true);
+const Grocery = ({name, price, quantity, img, type, addRemoveImg, location, update}) => {
+  const [inStock, setInStock] = useState(quantity > 0);
   const [qState, setQuantity] = useState(quantity);
 
   const handleClick = () =>{
-    let curQuantity = qState - 1;
+    const curQuantity = qState - 1;
     if(curQuantity < 1) setInStock(false);
+    if(curQuantity > 0) setInStock(true);
     setQuantity(qState - 1);
+    update(name, location);
   }
 
   const imgStyle={
@@ -17,6 +19,9 @@ const Grocery = ({name, price, quantity, img, type, addRemoveImg}) => {
     height:'50px'
   }
 
+  if(!inStock && location==='cart'){
+    return null;
+  }
 
   return(
     <div>

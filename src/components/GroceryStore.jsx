@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import Grocery from './Grocery';
 import add from '../assets/cart-plus.svg'
 import './Grocery.css'
 
-const GroceryStore = ({ items }) => {
+const GroceryStore = ({ items, update }) => {
   return (
     <div>
       {items.map((item, index) => 
@@ -15,6 +14,8 @@ const GroceryStore = ({ items }) => {
           quantity={item.quantity}
           type='success'
           addRemoveImg={add}
+          location='store'
+          update={update}
         />
       )
       }    
