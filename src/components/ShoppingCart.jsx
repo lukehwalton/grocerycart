@@ -3,12 +3,9 @@ import remove from '../assets/cart-dash.svg';
 import { useState } from 'react';
 
 const ShoppingCart = ({ items, update }) => {
-  const [cartItems, setCartItems] = useState(items);
-
-  
   return (
-    <div>
-      {cartItems.filter(item => item.quantity > 0).map((item, index) => 
+    <>
+      {items.filter(item => item.quantity > 0).map((item, index) => 
         <Grocery
           key={index}
           img={item.img}
@@ -19,11 +16,10 @@ const ShoppingCart = ({ items, update }) => {
           addRemoveImg={remove}
           location='cart'
           update={update}
-          updateCart = {setCartItems}
         />
       )
       }    
-    </div>
+    </>
   );
 };
 

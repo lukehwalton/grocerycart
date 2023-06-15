@@ -4,7 +4,7 @@ import './Grocery.css'
 
 const GroceryStore = ({ items, update }) => {
   return (
-    <div>
+    <>
       {items.map((item, index) => 
         <Grocery
           key={index}
@@ -19,7 +19,7 @@ const GroceryStore = ({ items, update }) => {
         />
       )
       }    
-    </div>
+    </>
   );
 };
 

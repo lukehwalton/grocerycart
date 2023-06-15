@@ -1,26 +1,44 @@
 import './App.css';
+import { useState } from 'react';
 import GroceryStore from './components/GroceryStore';
 import ShoppingCart from './components/ShoppingCart';
 import createList from './components/createList';
+import Totals from './components/Totals';
 
 function App() {
-  const stock = createList('store');
-  const cart = createList('store');
+  const [store, setStore] = useState(createList('store'));
+  const [cart, setCart] = useState(createList('cart'));
 
-  const update = (item, location) =>{
-    console.log(`updating ${item}`)
+  const adjustQuantity = (name, location, amount) =>{
     if (location==='store'){
-        stock.find(grocery => grocery.name===item).quantity--;
-        cart.find(grocery => grocery.name===item).quantity++;
-        console.log(`${item}'s quantity is now ${stock.find(grocery => grocery.name===item).quantity}`)
-    } else if(location==='cart'){
-      stock.find(grocery => grocery.name===item).quantity++;
-      cart.find(grocery => grocery.name===item).quantity--;
-      console.log(`${item}'s quantity is now ${cart.find(grocery => grocery.name===item).quantity}`)
+      setStore((prevStore) => 
+        prevStore.map((grocery) =>
+          grocery.name === name
+          ? {...grocery, quantity: grocery.quantity + amount}
+          : grocery
+        )
+      )
+    } else if (location==='cart'){
+      setCart((prevCart) => 
+        prevCart.map((grocery) =>
+          grocery.name === name
+          ?{...grocery, quantity: grocery.quantity + amount}
+          : grocery
+        )
+      )
     }
-    
   }
 
+  const update = (name, location) => {
+    if (location==='store'){
+      adjustQuantity(name, location, -1);
+      adjustQuantity(name, 'cart', 1);
+    } else if (location==='cart'){
+      adjustQuantity(name, location, -1);
+      adjustQuantity(name, 'store', 1);
+    }
+  }
+    
   return(
     <div className='page'>
       <div className='header bg-success'>
@@ -29,11 +47,12 @@ function App() {
         <p>What? No, not like that. Stop licking your monitor</p>
       </div>
       <div className='row'>
-        <div className='col stock'>
-          <GroceryStore items={stock} update={update}/>
+        <div className='col'>
+          <GroceryStore items={store} update={update}/>
         </div>
-        <div className='col cart'>
+        <div className='col'>
           <ShoppingCart items={cart} update={update}/>
+          <Totals cart={cart}></Totals>
         </div>
       </div>
     </div>

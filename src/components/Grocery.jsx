@@ -3,14 +3,9 @@ import './Grocery.css';
 
 
 const Grocery = ({name, price, quantity, img, type, addRemoveImg, location, update}) => {
-  const [inStock, setInStock] = useState(quantity > 0);
-  const [qState, setQuantity] = useState(quantity);
+  const inStock = (quantity > 0);
 
   const handleClick = () =>{
-    const curQuantity = qState - 1;
-    if(curQuantity < 1) setInStock(false);
-    if(curQuantity > 0) setInStock(true);
-    setQuantity(qState - 1);
     update(name, location);
   }
 
@@ -26,13 +21,12 @@ const Grocery = ({name, price, quantity, img, type, addRemoveImg, location, upda
   return(
     <div>
       <button
-        className={`btn btn-${type}`}
+        className={`btn btn-${type} grocery-button`}
         onClick={handleClick}
-        id="grocery-button"
         disabled={!inStock}
         >
           <img src={img} alt='' style={imgStyle}/>
-          {name} - {price} ({qState})
+          {name} - {price} ({quantity})
           <img src={addRemoveImg}/>
       </button>
     </div>
